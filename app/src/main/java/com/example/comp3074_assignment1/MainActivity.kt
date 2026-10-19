@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.comp3074_assignment1.ui.theme.COMP3074_Assignment1Theme
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HomeSc(name: String, modifier: Modifier = Modifier) {
-
+    val context = LocalContext.current
     var NumberOfHoursWorked by remember { mutableStateOf("") }
     var TaxRate by remember { mutableStateOf("") }
     var HourlyRate by remember { mutableStateOf("") }
@@ -53,6 +54,15 @@ fun HomeSc(name: String, modifier: Modifier = Modifier) {
         Text(
             text = "Calculator",
         )
+
+        Button(
+            onClick = {
+                val intent = android.content.Intent(context, AboutActivity::class.java)
+                context.startActivity(intent)
+            }
+        ) {
+            Text("About")
+        }
 
         OutlinedTextField(
             value = NumberOfHoursWorked,
@@ -113,3 +123,5 @@ fun calculate(NumberOfHoursWorked: String, Tax_rate: String, HourlyRate: String,
 
     return "Pay: $formatNet \nOverTime Pay: $formatOvertime \nTax: $formatTax \nTotal Pay (Net): ${formatNet}"
 }
+
+
